@@ -1,6 +1,7 @@
 # "24" Game and "24" Game Solver
 
 Copyright (c) 2014, Andrew Sauber
+
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
