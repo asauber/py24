@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # 24 Game
 # Copyright (C) Andrew Sauber 2014, All rights reserved
-"""Four numbers will be shown, enter a prefix expression using the operators.
+"""Four numbers will be shown, enter a prefix expression using the operators:
     add:       + x y
     subtract:  - x y
     multiply:  * x y
@@ -111,7 +111,11 @@ def can_make_24(digits):
                 result = op[ops[1]](result, float(ns[2]))
                 result = op[ops[2]](result, float(ns[3]))
                 if abs(result - 24) < 0.01:
-                    return True
+                    answer_string = "{}{}{}{}{}{}{}".format(
+                                        ops[2], ns[3],
+                                        ops[1], ns[2],
+                                        ops[0], ns[1], ns[0])
+                    return (True, answer_string)
             except ZeroDivisionError:
                 continue
                 
@@ -122,32 +126,47 @@ def can_make_24(digits):
                 result2 = op[ops[1]](float(ns[2]), float(ns[3]))
                 result = op[ops[2]](result1, result2)
                 if abs(result - 24) < 0.01:
-                    return True
+                    answer_string = "{}{}{}{}{}{}{}".format(
+                                        ops[2],
+                                        ops[1], ns[2], ns[3],
+                                        ops[0], ns[0], ns[1])
+                    return (True, answer_string)
             except ZeroDivisionError:
                 continue
 
     # none of the permutations were equal to 24
-    return False  
+    return (False, "")
 
 def gen_ops_permutations():
     return [(a + b + c) for a in "+-*/" for b in "+-*/" for c in "+-*/"]
-    
-print_rules()
-while True:
-    digits = [ ]
-    while not digits:
-        digits = gen_4_digits()
-        if not can_make_24(digits):
-            digits = [ ]
 
-    print("\nYour digits:", " ".join([str(d) for d in digits]))
+answer_string = ""
+def main():
+    global answer_string
+    print_rules()
     while True:
-        answer = get_valid_answer(digits)
-        result = evaluate_answer(answer)
-        print("Your total is: {0}".format(int(result)))
-        if abs(result - 24) < 0.01:
-            print("You got it!")
-            break
-        else:
-            print("Try again.")
- 
+        digits = [ ]
+        while not digits:
+            digits = gen_4_digits()
+            (valid, answer_string) = can_make_24(digits)
+            if not valid:
+                digits = [ ]
+
+        print("\nYour digits:", " ".join([str(d) for d in digits]))
+        while True:
+            answer = get_valid_answer(digits)
+            result = evaluate_answer(answer)
+            print("Your total is: {0}".format(int(result)))
+            if abs(result - 24) < 0.01:
+                print("You got it!")
+                print("The expected answer was: ", answer_string)
+                break
+            else:
+                print("Try again.")
+    
+try:
+    main()
+except KeyboardInterrupt:
+    print("\nThe expected answer was: ", answer_string)
+    print("Thanks for playing!")
+
