@@ -83,7 +83,6 @@ def get_valid_answer(digits):
     return answer
 
 def evaluate_answer(answer):
-
     stack = [ ]
 
     answer = list(answer)
