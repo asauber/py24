@@ -1,7 +1,7 @@
 # "24" Game and "24" Game Solver
 
-`py24.py` and `py24solver.py` execute interactively, you can run them from a
-terminal or command line with no arguments.
+The modules `py24.py` and `py24solver.py` execute interactively with no
+arguments.
 
 Example:
 
