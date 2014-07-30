@@ -7,13 +7,13 @@
     multiply:  * x y
     divide:    / x y
 
-Your expression must equal 24. For example, you are given these four numbers:
+Your expression must equal 24. For example, if you were given these numbers:
     1 6 2 8
 
 You could enter:
     / * 6 8 * 2 1
 
-Or if you were given:
+Or if you were given these numbers:
     4 4 4 7
 
 You could enter:
