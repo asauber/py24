@@ -79,7 +79,6 @@ def get_valid_answer(digits):
             answer = ""
             continue
 
-    print("Your answer is accepted: {0}".format(answer))
     return answer
 
 def evaluate_answer(answer):
@@ -105,12 +104,11 @@ def can_make_24(digits):
     for ns in Ns:
         for ops in Ops:
             try:
-                result = float(ns[0])
-                result = op[ops[0]](result, float(ns[1]))
-                result = op[ops[1]](result, float(ns[2]))
-                result = op[ops[2]](result, float(ns[3]))
+                result = op[ops[0]](float(ns[1]), float(ns[0]))
+                result = op[ops[1]](float(ns[2]), result)
+                result = op[ops[2]](float(ns[3]), result)
                 if abs(result - 24) < 0.01:
-                    answer_string = "{}{}{}{}{}{}{}".format(
+                    answer_string = "{} {} {} {} {} {} {}".format(
                                         ops[2], ns[3],
                                         ops[1], ns[2],
                                         ops[0], ns[1], ns[0])
@@ -121,14 +119,14 @@ def can_make_24(digits):
 
         for ops in Ops:
             try:
-                result1 = op[ops[0]](float(ns[0]), float(ns[1]))
-                result2 = op[ops[1]](float(ns[2]), float(ns[3]))
-                result = op[ops[2]](result1, result2)
+                result1 = op[ops[0]](float(ns[1]), float(ns[0]))
+                result2 = op[ops[1]](float(ns[3]), float(ns[2]))
+                result = op[ops[2]](result2, result1)
                 if abs(result - 24) < 0.01:
-                    answer_string = "{}{}{}{}{}{}{}".format(
+                    answer_string = "{} {} {} {} {} {} {}".format(
                                         ops[2],
-                                        ops[1], ns[2], ns[3],
-                                        ops[0], ns[0], ns[1])
+                                        ops[1], ns[3], ns[2],
+                                        ops[0], ns[1], ns[0])
                     return (True, answer_string)
             except ZeroDivisionError:
                 continue
@@ -158,7 +156,7 @@ def main():
             print("Your total is: {0}".format(int(result)))
             if abs(result - 24) < 0.01:
                 print("You got it!")
-                print("The expected answer was: ", answer_string)
+                print("The expected answer was:", answer_string)
                 break
             else:
                 print("Try again.")
@@ -166,6 +164,6 @@ def main():
 try:
     main()
 except KeyboardInterrupt:
-    print("\nThe expected answer was: ", answer_string)
+    print("\nThe expected answer was:", answer_string)
     print("Thanks for playing!")
 
