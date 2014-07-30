@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # 24 Game
 # Copyright (C) Andrew Sauber 2014, All rights reserved
-"""Enter four digits from 1 to 9.
-The answer for the game "24" using those digits will be printed in prefix form.
-Press C-c to exit."""
+"""Enter four digits from 1 to 9, optionally seperated by whitespace only.
+Example: 9 1 5 8
+The answer for the game "24" using these digits will be printed in prefix form.
+Press <ctrl>+c to exit."""
 
 from __future__ import print_function
 from itertools import permutations
@@ -57,6 +58,8 @@ def can_make_24(digits):
     Ops = gen_ops_permutations()
 
     for ns in Ns:
+        # For this permutation of the numbers, try all prefix expressions of
+        # the form op w op x op y z
         for ops in Ops:
             try:
                 result = op[ops[0]](float(ns[1]), float(ns[0]))
@@ -71,7 +74,8 @@ def can_make_24(digits):
             except ZeroDivisionError:
                 continue
                 
-
+        # For this permutation of the numbers, try all prefix expressions of
+        # the form op op w x op y z
         for ops in Ops:
             try:
                 result1 = op[ops[0]](float(ns[1]), float(ns[0]))
@@ -100,7 +104,7 @@ def main():
         (valid, answer_string) = can_make_24(inp)
 
         if valid:
-            print("The way to make 24 is: ", answer_string)
+            print("One way to make 24 is:", answer_string)
         else:
             print("No way to make 24")
     

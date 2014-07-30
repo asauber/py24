@@ -19,7 +19,7 @@ Or if you were given these numbers:
 You could enter:
     * - 7 4 + 4 4
 
-Press C-c to exit. Good Luck!"""
+Press <ctrl>+c to exit. Good Luck!"""
 
 from __future__ import print_function
 import random
@@ -102,6 +102,8 @@ def can_make_24(digits):
     Ops = gen_ops_permutations()
 
     for ns in Ns:
+        # For this permutation of the numbers, try all prefix expressions of
+        # the form op w op x op y z
         for ops in Ops:
             try:
                 result = op[ops[0]](float(ns[1]), float(ns[0]))
@@ -116,7 +118,8 @@ def can_make_24(digits):
             except ZeroDivisionError:
                 continue
                 
-
+        # For this permutation of the numbers, try all prefix expressions of
+        # the form op op w x op y z
         for ops in Ops:
             try:
                 result1 = op[ops[0]](float(ns[1]), float(ns[0]))
@@ -156,7 +159,8 @@ def main():
             print("Your total is: {0}".format(int(result)))
             if abs(result - 24) < 0.01:
                 print("You got it!")
-                print("The expected answer was:", answer_string)
+                print("The answer that verified these numbers was:",
+                      answer_string)
                 break
             else:
                 print("Try again.")
@@ -164,6 +168,6 @@ def main():
 try:
     main()
 except KeyboardInterrupt:
-    print("\nThe expected answer was:", answer_string)
+    print("\nThe answer that verified these numbers was:", answer_string)
     print("Thanks for playing!")
 
