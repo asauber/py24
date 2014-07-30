@@ -1,6 +1,17 @@
 # "24" Game and "24" Game Solver
 
-Copyright (c) 2014, Andrew Sauber
+`py24.py` and `py24solver.py` execute interactively, you can run them from a
+terminal or command line with no arguments.
+
+Example:
+
+`$ ./py24.py`
+
+`$ ./py24solver.py`
+
+Have fun!
+
+### Copyright (c) 2014, Andrew Sauber
 
 All rights reserved.
 
