@@ -1,4 +1,4 @@
-# "24" Game and "24" Game Solver
+# 24 Game and 24 Game Solver
 
 The modules `py24.py` and `py24solver.py` execute interactively with no
 arguments.
