@@ -136,7 +136,7 @@ def main():
     
 try:
     main()
-except KeyboardInterrupt:
+except (KeyboardInterrupt, EOFError):
     print("\nThe answer that verified these numbers was:", answer_string)
     print("Thanks for playing!")
 
