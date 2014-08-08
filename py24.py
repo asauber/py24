@@ -78,12 +78,16 @@ def sanitize_answer(answer, digits):
             print("Your answer contains an invalid number or operator")
             raise ValueError
 
-    # the answer must take one of two prefix forms
-    pattern1 = re.compile("[+\-*/][+\-*/]\d\d[+\-*/]\d\d") 
-    pattern2 = re.compile("[+\-*/]\d[+\-*/]\d[+\-*/]\d\d")
-    if not pattern1.match(answer) and not pattern2.match(answer):
-        print("Your answer isn't in prefix notation")
-        raise ValueError
+    # the answer must take one of these prefix forms
+    prefix_patterns = [
+        re.compile("[+\-*/][+\-*/][+\-*/]\d\d\d\d"),
+        re.compile("[+\-*/][+\-*/]\d\d[+\-*/]\d\d"),
+        re.compile("[+\-*/][+\-*/]\d[+\-*/]\d\d\d"),
+        re.compile("[+\-*/]\d[+\-*/][+\-*/]\d\d\d"),
+        re.compile("[+\-*/]\d[+\-*/]\d[+\-*/]\d\d")]
+    if not any([pattern.match(answer) for pattern in prefix_patterns]):
+      print("Your answer isn't in prefix notation")
+      raise ValueError
 
     # the answer is valid
     return answer
