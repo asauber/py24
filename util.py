@@ -2,17 +2,17 @@
 #
 # Copyright (c) 2014, Andrew Sauber
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 # 1. Redistributions of source code must retain the above copyright notice, this
 #    list of conditions and the following disclaimer.
-# 
+#
 # 2. Redistributions in binary form must reproduce the above copyright notice,
 #    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -26,18 +26,15 @@
 
 from itertools import permutations
 import operator as ops
-op = {
-    '+' : ops.add,
-    '-' : ops.sub,
-    '*' : ops.mul,
-    '/' : ops.div
-}
+
+op = {"+": ops.add, "-": ops.sub, "*": ops.mul, "/": ops.floordiv}
 
 try:
     input = raw_input
 except NameError:
     pass
- 
+
+
 def get_valid_input(prompt, sanitizer, *args):
     inp = ""
     while inp == "":
@@ -49,9 +46,11 @@ def get_valid_input(prompt, sanitizer, *args):
 
     return inp
 
+
 def gen_ops_permutations():
     ops_str = "+-*/"
     return [(a + b + c) for a in ops_str for b in ops_str for c in ops_str]
+
 
 def can_make_24(digits):
     Ns = permutations(digits)
@@ -67,13 +66,12 @@ def can_make_24(digits):
                 result = op[ops[2]](float(ns[3]), result)
                 if abs(result - 24) < 0.01:
                     answer_string = "{} {} {} {} {} {} {}".format(
-                                        ops[2], ns[3],
-                                        ops[1], ns[2],
-                                        ops[0], ns[1], ns[0])
+                        ops[2], ns[3], ops[1], ns[2], ops[0], ns[1], ns[0]
+                    )
                     return (True, answer_string)
             except ZeroDivisionError:
                 continue
-                
+
         # For this permutation of the numbers, try all prefix expressions of
         # the form op op w x op y z
         for ops in Ops:
@@ -83,13 +81,11 @@ def can_make_24(digits):
                 result = op[ops[2]](result2, result1)
                 if abs(result - 24) < 0.01:
                     answer_string = "{} {} {} {} {} {} {}".format(
-                                        ops[2],
-                                        ops[1], ns[3], ns[2],
-                                        ops[0], ns[1], ns[0])
+                        ops[2], ops[1], ns[3], ns[2], ops[0], ns[1], ns[0]
+                    )
                     return (True, answer_string)
             except ZeroDivisionError:
                 continue
 
     # none of the permutations were equal to 24
     return (False, "")
-

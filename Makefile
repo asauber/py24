@@ -1,5 +1,8 @@
 .PHONY: clean
 
 clean:
-	rm *.pyc *.html
+	rm -rf *.pyc *.html __pycache__
+
+fmt:
+	black *.py
 
