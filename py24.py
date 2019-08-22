@@ -49,6 +49,8 @@ import py24util
 import random
 import re
 import operator as ops
+import readline
+
 op = {
     '+' : ops.add,
     '-' : ops.sub,
