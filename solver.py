@@ -62,7 +62,7 @@ def main():
     while True:
         inp = util.get_valid_input("Input: ", sanitize_input)
         inp = [int(x) for x in list(inp)]
-        (valid, answer_string) = util.can_make_24(inp)
+        (valid, answer_string) = util.solve(inp)
 
         if valid:
             print("One way to make 24 is:", answer_string)

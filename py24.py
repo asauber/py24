@@ -52,7 +52,7 @@ import re
 import operator as ops
 import readline
 
-op = {"+": ops.add, "-": ops.sub, "*": ops.mul, "/": ops.floordiv}
+op = {"+": ops.add, "-": ops.sub, "*": ops.mul, "/": ops.truediv}
 
 
 def print_rules():
@@ -109,26 +109,25 @@ def evaluate_answer(answer):
 
 
 def gen_puzzle():
-    while not digits:
+    valid = False
+    while not valid:
         digits = [random.randint(1, 9) for _ in range(4)]
-        valid, answer_string = util.can_make_24(digits)
-        if not valid:
-            digits = []
-    return digits
+        valid, answer = util.solve(digits)
+    return digits, answer
 
 
 def game_loop():
     while True:
-        puzzle = gen_puzzle()
+        puzzle, answer = gen_puzzle()
 
-        print("\nYour digits:", " ".join([str(d) for d in digits]))
+        print("\nYour digits:", " ".join([str(digit) for digit in puzzle]))
         while True:
-            answer = util.get_valid_input("Answer: ", sanitize_answer, digits)
+            answer = util.get_valid_input("Answer: ", sanitize_answer, puzzle)
             result = evaluate_answer(answer)
             print("Your total is: {0}".format(int(result)))
             if abs(result - 24) < 0.01:
                 print("You got it!")
-                print("The answer that verified these numbers was:", answer_string)
+                print("The answer that verified these numbers was:", answer)
                 break
             else:
                 print("Try again.")
@@ -146,4 +145,4 @@ def main():
 try:
     main()
 except (KeyboardInterrupt, EOFError):
-    print("Thanks for playing!")
+    print("\nThanks for playing!")

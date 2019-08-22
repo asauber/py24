@@ -27,7 +27,7 @@
 from itertools import permutations
 import operator as ops
 
-op = {"+": ops.add, "-": ops.sub, "*": ops.mul, "/": ops.floordiv}
+op = {"+": ops.add, "-": ops.sub, "*": ops.mul, "/": ops.truediv}
 
 try:
     input = raw_input
@@ -52,7 +52,7 @@ def gen_ops_permutations():
     return [(a + b + c) for a in ops_str for b in ops_str for c in ops_str]
 
 
-def can_make_24(digits):
+def solve(digits):
     Ns = permutations(digits)
     Ops = gen_ops_permutations()
 
@@ -65,10 +65,10 @@ def can_make_24(digits):
                 result = op[ops[1]](float(ns[2]), result)
                 result = op[ops[2]](float(ns[3]), result)
                 if abs(result - 24) < 0.01:
-                    answer_string = "{} {} {} {} {} {} {}".format(
+                    answer = "{} {} {} {} {} {} {}".format(
                         ops[2], ns[3], ops[1], ns[2], ops[0], ns[1], ns[0]
                     )
-                    return (True, answer_string)
+                    return (True, answer)
             except ZeroDivisionError:
                 continue
 
@@ -80,10 +80,10 @@ def can_make_24(digits):
                 result2 = op[ops[1]](float(ns[3]), float(ns[2]))
                 result = op[ops[2]](result2, result1)
                 if abs(result - 24) < 0.01:
-                    answer_string = "{} {} {} {} {} {} {}".format(
+                    answer = "{} {} {} {} {} {} {}".format(
                         ops[2], ops[1], ns[3], ns[2], ops[0], ns[1], ns[0]
                     )
-                    return (True, answer_string)
+                    return (True, answer)
             except ZeroDivisionError:
                 continue
 
