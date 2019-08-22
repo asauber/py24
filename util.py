@@ -1,6 +1,6 @@
 # "24" Game utilities
 #
-# Copyright (c) 2014, Andrew Sauber
+# Copyright (c) 2014, 2019 Andrew Sauber
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -35,14 +35,15 @@ except NameError:
     pass
 
 
-def get_valid_input(prompt, sanitizer, *args):
-    inp = ""
-    while inp == "":
+def get_valid_input(prompt, validator, *args):
+    valid = False
+    while not valid:
         inp = input(prompt)
         try:
-            inp = sanitizer(inp, *args)
+            inp = validator(inp, *args)
+            valid = True
         except ValueError:
-            inp = ""
+            pass
 
     return inp
 

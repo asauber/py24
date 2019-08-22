@@ -59,7 +59,7 @@ def print_rules():
     print(__doc__)
 
 
-def sanitize_answer(answer, digits):
+def validate_answer(answer, digits):
     # remove all whitespace by taking advantage of split()
     answer = "".join(answer.split())
 
@@ -118,7 +118,7 @@ def gen_puzzle():
 
 def game_loop():
     while True:
-        puzzle, answer = gen_puzzle()
+        puzzle, solution = gen_puzzle()
 
         print("\nYour digits:", " ".join([str(digit) for digit in puzzle]))
         while True:
@@ -127,7 +127,7 @@ def game_loop():
             print("Your total is: {0}".format(int(result)))
             if abs(result - 24) < 0.01:
                 print("You got it!")
-                print("The answer that verified these numbers was:", answer)
+                print("The solution that verified these numbers was:", solution)
                 break
             else:
                 print("Try again.")

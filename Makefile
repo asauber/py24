@@ -6,3 +6,5 @@ clean:
 fmt:
 	black *.py
 
+run:
+	./py24.py
